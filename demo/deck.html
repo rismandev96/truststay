@@ -1,1 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>TrustStay — Pitch Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+  <style>
+:root{--bg:#050508;--bg2:#0c0c14;--surface:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.07);--text:#eaeaf0;--dim:#8888a0;--muted:#55556a;--cyan:#5ce1e6;--cyan-dim:rgba(92,225,230,0.1);--purple:#a78bfa;--purple-dim:rgba(167,139,250,0.1);--green:#34d399;--green-dim:rgba(52,211,153,0.1);--orange:#fbbf24;--red:#f87171;--font:'Outfit',sans-serif;--mono:'Space Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}body{background:var(--bg);color:var(--text);font-family:var(--font);overflow:hidden;height:100vh;width:100vw;cursor:default}
+::selection{background:var(--cyan);color:var(--bg)}
 
+/* SLIDES */
+.deck{width:100%;height:100%;position:relative}
+.slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:60px 80px;opacity:0;pointer-events:none;transition:opacity 0.5s,transform 0.5s;transform:translateX(40px)}
+.slide.active{opacity:1;pointer-events:auto;transform:translateX(0)}
+.slide.prev{transform:translateX(-40px)}
+.slide-inner{max-width:1100px;width:100%}
+
+/* NAV BAR */
+.deck-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(5,5,8,0.85);backdrop-filter:blur(16px);border-top:1px solid var(--border)}
+.deck-nav-left{display:flex;align-items:center;gap:12px}
+.deck-logo{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,var(--cyan),var(--purple));display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--bg);font-weight:900}
+.deck-brand{font-size:14px;font-weight:700;letter-spacing:-0.3px}.deck-brand span{color:var(--cyan)}
+.deck-nav-center{display:flex;align-items:center;gap:16px}
+.nav-arrow{width:36px;height:36px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all 0.2s}
+.nav-arrow:hover{color:var(--text);border-color:rgba(255,255,255,0.15);background:rgba(255,255,255,0.06)}
+.nav-arrow:disabled{opacity:0.3;cursor:default}
+.slide-counter{font-family:var(--mono);font-size:13px;color:var(--dim);font-weight:700;min-width:60px;text-align:center}
+.deck-nav-right{display:flex;gap:8px}
+.deck-btn{padding:8px 18px;border-radius:99px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.deck-btn:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.15)}
+.deck-btn-accent{background:linear-gradient(135deg,var(--cyan),var(--purple));color:var(--bg);border:none}
+.deck-btn-accent:hover{box-shadow:0 4px 16px rgba(92,225,230,0.25)}
+
+/* PROGRESS */
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--purple));z-index:101;transition:width 0.4s ease}
+
+/* TYPOGRAPHY */
+.s-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--cyan);margin-bottom:20px}
+.s-tag::before{content:'';width:20px;height:1px;background:var(--cyan)}
+.s-title{font-size:clamp(32px,5vw,56px);font-weight:900;letter-spacing:-2px;line-height:1.05;margin-bottom:16px}
+.s-title .hl{background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.s-sub{font-size:18px;color:var(--dim);line-height:1.7;max-width:600px;font-weight:400}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative}
+.card-sm{padding:20px;border-radius:12px}
+
+/* STAT BLOCKS */
+.big-stat{font-size:clamp(48px,6vw,80px);font-weight:900;font-family:var(--mono);letter-spacing:-3px;line-height:1}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+.stat-box{text-align:center;padding:24px 16px;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.stat-val{font-size:28px;font-weight:900;font-family:var(--mono);letter-spacing:-1px}
+.stat-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-top:4px}
+
+/* TABLE */
+.comp-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:24px}
+.comp-table th{text-align:left;padding:10px 14px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+.comp-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03)}
+.comp-table tr:last-child td{border:none}
+.comp-table .highlight{background:rgba(92,225,230,0.05)}
+.check{color:var(--green)}.cross{color:var(--red);opacity:0.5}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:32px;margin-top:24px}
+.timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--cyan),var(--purple),var(--green))}
+.tl-item{position:relative;margin-bottom:20px;padding-left:24px}
+.tl-item::before{content:'';position:absolute;left:-29px;top:6px;width:10px;height:10px;border-radius:50%;border:2px solid var(--cyan);background:var(--bg)}
+.tl-item.current::before{background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.tl-phase{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--cyan);margin-bottom:2px}
+.tl-title{font-size:15px;font-weight:700;margin-bottom:2px}
+.tl-desc{font-size:12px;color:var(--dim);line-height:1.5}
+
+/* CONTACT */
+.contact-card{display:flex;align-items:center;gap:16px;padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:14px;margin-bottom:12px}
+.contact-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.contact-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em}
+.contact-val{font-size:15px;font-weight:700}
+.contact-val a{color:var(--cyan);text-decoration:none}
+
+/* ORBS */
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+.slide-inner{position:relative;z-index:1}
+
+/* MOBILE */
+@media(max-width:900px){.slide{padding:40px 24px 80px}.g2,.g3,.g4{grid-template-columns:1fr}.stat-grid{grid-template-columns:1fr 1fr}.comp-table{font-size:11px}}
+@media(max-width:600px){.deck-nav-right{display:none}.slide{padding:24px 16px 80px}}
+  </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<div class="deck">
+
+<!-- SLIDE 1: COVER -->
+<div class="slide active" id="s0">
+  <div class="orb" style="width:500px;height:500px;background:rgba(92,225,230,0.06);top:-10%;right:-5%"></div>
+  <div class="orb" style="width:350px;height:350px;background:rgba(167,139,250,0.05);bottom:10%;left:-5%"></div>
+  <div class="slide-inner">
+    <div class="s-tag">Seed Round — March 2026</div>
+    <h1 class="s-title" style="font-size:clamp(40px,6vw,68px)">The first on-chain marketplace for <span class="hl">real-world human presence.</span></h1>
+    <p class="s-sub" style="margin-bottom:32px">TrustStay connects families with verified frens who show up in person during emergencies. Payments locked in MPC escrow on Base L2. Released when the job's done.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="./index.html" class="deck-btn deck-btn-accent" target="_blank"><i class="fa-solid fa-play"></i> Live Demo</a>
+      <span class="deck-btn" style="cursor:default"><i class="fa-solid fa-envelope"></i> heyrichweb3@gmail.com</span>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-box"><div class="stat-val" style="color:var(--cyan)">847+</div><div class="stat-label">Tasks Done</div></div>
+      <div class="stat-box"><div class="stat-val" style="color:var(--green)">$124K</div><div class="stat-label">Escrow Volume</div></div>
+      <div class="stat-box"><div class="stat-val" style="color:var(--purple)">312</div><div class="stat-label">Active Frens</div></div>
+      <div class="stat-box"><div class="stat-val" style="color:var(--orange)">4.9★</div><div class="stat-label">Avg Rating</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2: PROBLEM -->
+<div class="slide" id="s1">
+  <div class="orb" style="width:400px;height:400px;background:rgba(248,113,113,0.05);top:10%;left:50%"></div>
+  <div class="slide-inner">
+    <div class="s-tag">The Problem</div>
+    <div class="g2">
+      <div>
+        <h2 class="s-title">281 million people live far from <span class="hl">family.</span></h2>
+        <p class="s-sub">When an emergency hits — parent hospitalized, death in the family, elderly relative alone — physical distance becomes an impossible gap. There is no platform to hire someone trustworthy to be there on your behalf.</p>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:12px;display:flex;gap:14px;align-items:flex-start">
+          <span style="font-size:24px">✈️</span>
+          <div><div style="font-weight:700;margin-bottom:4px">You can't teleport</div><div style="font-size:13px;color:var(--dim)">Mom's at the hospital in Jakarta. You're in Berlin. Next flight? Tomorrow morning. Who stays with her tonight?</div></div>
+        </div>
+        <div class="card" style="margin-bottom:12px;display:flex;gap:14px;align-items:flex-start">
+          <span style="font-size:24px">💸</span>
+          <div><div style="font-weight:700;margin-bottom:4px">Agencies take 30-40%</div><div style="font-size:13px;color:var(--dim)">Traditional care services charge insane markups. The person who actually shows up at 3 AM sees a fraction of what you pay.</div></div>
+        </div>
+        <div class="card" style="display:flex;gap:14px;align-items:flex-start">
+          <span style="font-size:24px">🔓</span>
+          <div><div style="font-weight:700;margin-bottom:4px">Zero accountability</div><div style="font-size:13px;color:var(--dim)">No tracking, no proof of service, no dispute resolution. Asking a neighbor is a coin flip. Informal cash payments have no recourse.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: MARKET -->
+<div class="slide" id="s2">
+  <div class="slide-inner">
+    <div class="s-tag">Market Opportunity</div>
+    <h2 class="s-title">Massive TAM.<br>Zero <span class="hl">competition.</span></h2>
+    <p class="s-sub" style="margin-bottom:40px">The dedicated companion care market doesn't exist as a category yet. We're creating it — at the intersection of three massive, growing markets.</p>
+    <div class="g3">
+      <div class="card" style="text-align:center;padding:36px 24px">
+        <div class="big-stat" style="color:var(--cyan)">$416B</div>
+        <div style="font-size:15px;font-weight:600;margin:8px 0 4px">Home Healthcare Market</div>
+        <div style="font-size:12px;color:var(--muted)">Grand View Research, 2024</div>
+        <div style="font-size:12px;color:var(--dim);margin-top:8px">Growing at 10.2% CAGR → $748B by 2030</div>
+      </div>
+      <div class="card" style="text-align:center;padding:36px 24px">
+        <div class="big-stat" style="color:var(--green)">281M</div>
+        <div style="font-size:15px;font-weight:600;margin:8px 0 4px">International Migrants</div>
+        <div style="font-size:12px;color:var(--muted)">UN DESA, 2024</div>
+        <div style="font-size:12px;color:var(--dim);margin-top:8px">168M are working-age labor migrants (ILO)</div>
+      </div>
+      <div class="card" style="text-align:center;padding:36px 24px">
+        <div class="big-stat" style="color:var(--purple)">$857B</div>
+        <div style="font-size:15px;font-weight:600;margin:8px 0 4px">Global Remittances</div>
+        <div style="font-size:12px;color:var(--muted)">World Bank, 2023</div>
+        <div style="font-size:12px;color:var(--dim);margin-top:8px">Exceeded FDI to developing nations by $270B+</div>
+      </div>
+    </div>
+    <div style="margin-top:24px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--dim);text-align:center">
+      <strong style="color:var(--text)">The gap:</strong> Care.com does nannies. TaskRabbit does errands. Gojek does rides. Nobody does <strong style="color:var(--cyan)">"sit with my mom at the hospital tonight."</strong> The companion service vertical is completely unserved.
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: SOLUTION -->
+<div class="slide" id="s3">
+  <div class="orb" style="width:400px;height:400px;background:rgba(92,225,230,0.05);bottom:0;right:0"></div>
+  <div class="slide-inner">
+    <div class="s-tag">The Solution</div>
+    <h2 class="s-title">Hire a <span class="hl">fren.</span> On-chain.</h2>
+    <p class="s-sub" style="margin-bottom:32px">TrustStay is a two-sided marketplace. People who need physical human presence post requests. Verified frens accept and get paid in USDC through MPC escrow.</p>
+    <div class="g4">
+      <div class="card" style="text-align:center;padding:28px 16px">
+        <div style="font-size:28px;margin-bottom:12px">🔒</div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:6px">MPC Escrow</div>
+        <div style="font-size:12px;color:var(--dim);line-height:1.5">2-of-3 threshold wallet on Base L2. No single party can move funds. Not even us.</div>
+      </div>
+      <div class="card" style="text-align:center;padding:28px 16px">
+        <div style="font-size:28px;margin-bottom:12px">📍</div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:6px">GPS-Verified</div>
+        <div style="font-size:12px;color:var(--dim);line-height:1.5">Frens check in with GPS + photo proof. Real-time location and status updates.</div>
+      </div>
+      <div class="card" style="text-align:center;padding:28px 16px">
+        <div style="font-size:28px;margin-bottom:12px">◆</div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:6px">Soulbound Rep</div>
+        <div style="font-size:12px;color:var(--dim);line-height:1.5">Non-transferable reputation tokens. On-chain track record, permanent and public.</div>
+      </div>
+      <div class="card" style="text-align:center;padding:28px 16px">
+        <div style="font-size:28px;margin-bottom:12px">💳</div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:6px">Fiat On-Ramp</div>
+        <div style="font-size:12px;color:var(--dim);line-height:1.5">Credit card, bank transfer, Apple Pay. Works for people who've never touched crypto.</div>
+      </div>
+    </div>
+    <div style="margin-top:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;font-size:13px">
+      <div style="text-align:center;padding:14px;background:rgba(92,225,230,0.05);border:1px solid rgba(92,225,230,0.1);border-radius:10px"><span style="color:var(--cyan);font-weight:700">🏥</span><br/>Hospital stays</div>
+      <div style="text-align:center;padding:14px;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.1);border-radius:10px"><span style="color:var(--purple);font-weight:700">🕊️</span><br/>Grief & prayers</div>
+      <div style="text-align:center;padding:14px;background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.1);border-radius:10px"><span style="color:var(--green);font-weight:700">👴</span><br/>Elderly care</div>
+      <div style="text-align:center;padding:14px;background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.1);border-radius:10px"><span style="color:var(--orange);font-weight:700">⚡</span><br/>Emergencies</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: HOW IT WORKS -->
+<div class="slide" id="s4">
+  <div class="slide-inner">
+    <div class="s-tag">How It Works</div>
+    <h2 class="s-title" style="margin-bottom:40px">Four steps to <span class="hl">trust.</span></h2>
+    <div class="g4">
+      <div style="text-align:center">
+        <div style="width:56px;height:56px;border-radius:14px;background:var(--bg);border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:var(--cyan);margin:0 auto 16px;font-family:var(--mono)">01</div>
+        <div style="font-weight:700;margin-bottom:6px">Post request</div>
+        <div style="font-size:13px;color:var(--dim);line-height:1.5">Describe what you need. Set fee + duration. Hospital companion, funeral prayers, elderly check-in.</div>
+      </div>
+      <div style="text-align:center">
+        <div style="width:56px;height:56px;border-radius:14px;background:var(--bg);border:2px solid var(--purple);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:var(--purple);margin:0 auto 16px;font-family:var(--mono)">02</div>
+        <div style="font-weight:700;margin-bottom:6px">Escrow locks USDC</div>
+        <div style="font-size:13px;color:var(--dim);line-height:1.5">Funds go into MPC escrow on Base L2. Verifiable on-chain. Gas under $0.01.</div>
+      </div>
+      <div style="text-align:center">
+        <div style="width:56px;height:56px;border-radius:14px;background:var(--bg);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:var(--green);margin:0 auto 16px;font-family:var(--mono)">03</div>
+        <div style="font-weight:700;margin-bottom:6px">Fren shows up</div>
+        <div style="font-size:13px;color:var(--dim);line-height:1.5">Verified fren accepts, GPS check-in at location, sends live photo + chat updates.</div>
+      </div>
+      <div style="text-align:center">
+        <div style="width:56px;height:56px;border-radius:14px;background:var(--bg);border:2px solid var(--orange);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:var(--orange);margin:0 auto 16px;font-family:var(--mono)">04</div>
+        <div style="font-weight:700;margin-bottom:6px">Confirm & release</div>
+        <div style="font-size:13px;color:var(--dim);line-height:1.5">Confirm on-chain. Funds release instantly. Dispute? 3-party arbitration handles it.</div>
+      </div>
+    </div>
+    <div class="g2" style="margin-top:32px">
+      <div class="card card-sm" style="display:flex;justify-content:space-between;align-items:center">
+        <div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em">Protocol Fee</div><div style="font-size:20px;font-weight:900;color:var(--green)">5%</div></div>
+        <div style="text-align:right"><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em">vs. Traditional Agencies</div><div style="font-size:20px;font-weight:900;color:var(--red)">30-40%</div></div>
+      </div>
+      <div class="card card-sm" style="display:flex;justify-content:space-between;align-items:center">
+        <div><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em">Avg Gas per Tx</div><div style="font-size:20px;font-weight:900;color:var(--green)">&lt;$0.01</div></div>
+        <div style="text-align:right"><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em">Settlement Time</div><div style="font-size:20px;font-weight:900;color:var(--cyan)">Instant</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: BUSINESS MODEL -->
+<div class="slide" id="s5">
+  <div class="slide-inner">
+    <div class="s-tag">Business Model</div>
+    <h2 class="s-title" style="margin-bottom:32px">How we <span class="hl">make money.</span></h2>
+    <div class="g2">
+      <div>
+        <div class="card" style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">Platform Commission</div><div style="font-size:12px;color:var(--dim)">10-15% per task — taken at escrow release</div></div><div style="font-size:24px;font-weight:900;color:var(--cyan);font-family:var(--mono)">~65%</div></div></div>
+        <div class="card" style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">Urgency Premium</div><div style="font-size:12px;color:var(--dim)">+25% surcharge for &lt;2 hour requests</div></div><div style="font-size:24px;font-weight:900;color:var(--orange);font-family:var(--mono)">~15%</div></div></div>
+        <div class="card" style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">Fren Pro Subscription</div><div style="font-size:12px;color:var(--dim)">$9.99-19.99/mo for priority + analytics</div></div><div style="font-size:24px;font-weight:900;color:var(--purple);font-family:var(--mono)">~10%</div></div></div>
+        <div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700">Insurance & B2B</div><div style="font-size:12px;color:var(--dim)">Micro-insurance add-on + enterprise benefit</div></div><div style="font-size:24px;font-weight:900;color:var(--green);font-family:var(--mono)">~10%</div></div></div>
+      </div>
+      <div>
+        <div class="card" style="padding:32px">
+          <div style="font-size:13px;font-weight:700;color:var(--cyan);margin-bottom:16px">UNIT ECONOMICS (at scale)</div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--dim)">Avg task fee</span><span style="font-weight:700;font-family:var(--mono)">$60</span></div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--dim)">Blended commission</span><span style="font-weight:700;font-family:var(--mono)">12%</span></div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--dim)">Revenue per task</span><span style="font-weight:700;color:var(--green);font-family:var(--mono)">$7.20</span></div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--dim)">Variable cost per task</span><span style="font-weight:700;font-family:var(--mono)">~$1.50</span></div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px"><span style="color:var(--dim)">Contribution margin</span><span style="font-weight:700;color:var(--green);font-family:var(--mono)">79%</span></div>
+          <div style="display:flex;justify-content:space-between;padding:12px 0;font-size:14px"><span style="color:var(--dim)">Target GMV (Mo 12)</span><span style="font-weight:700;color:var(--cyan);font-family:var(--mono)">$270K/mo</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: COMPETITIVE LANDSCAPE -->
+<div class="slide" id="s6">
+  <div class="slide-inner">
+    <div class="s-tag">Competition</div>
+    <h2 class="s-title" style="margin-bottom:8px">We're not <span class="hl">replacing</span> anyone.</h2>
+    <p class="s-sub" style="margin-bottom:16px">We're creating a new category. The closest comparisons are adjacent verticals.</p>
+    <table class="comp-table">
+      <thead><tr><th></th><th style="color:var(--cyan)">TrustStay</th><th>Care.com</th><th>TaskRabbit</th><th>Gojek/Grab</th></tr></thead>
+      <tbody>
+        <tr class="highlight"><td style="font-weight:600">Focus</td><td style="color:var(--cyan);font-weight:700">On-demand companion</td><td>Nanny / home care</td><td>General errands</td><td>Ride + multi-svc</td></tr>
+        <tr><td style="font-weight:600">Non-medical companion</td><td><span class="check">✓ Core product</span></td><td><span class="cross">✗</span></td><td>Partial</td><td><span class="cross">✗</span></td></tr>
+        <tr class="highlight"><td style="font-weight:600">Escrow protection</td><td><span class="check">✓ MPC on-chain</span></td><td><span class="cross">✗</span></td><td>Card hold</td><td><span class="cross">✗</span></td></tr>
+        <tr><td style="font-weight:600">Grief / religious</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+        <tr class="highlight"><td style="font-weight:600">Cross-border payments</td><td><span class="check">✓ USDC borderless</span></td><td>Limited</td><td><span class="cross">✗</span></td><td>Regional</td></tr>
+        <tr><td style="font-weight:600">GPS live tracking</td><td><span class="check">✓ + photo updates</span></td><td><span class="cross">✗</span></td><td>Limited</td><td>Ride only</td></tr>
+        <tr class="highlight"><td style="font-weight:600">On-chain reputation</td><td><span class="check">✓ Soulbound</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+        <tr><td style="font-weight:600">Target audience</td><td style="color:var(--cyan);font-weight:600">Gen Z / diaspora / CT</td><td>US/EU parents</td><td>Urban millennials</td><td>SEA general</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SLIDE 8: ROADMAP -->
+<div class="slide" id="s7">
+  <div class="slide-inner">
+    <div class="s-tag">Roadmap</div>
+    <h2 class="s-title" style="margin-bottom:8px">From testnet to <span class="hl">20 cities.</span></h2>
+    <div class="g2">
+      <div class="timeline">
+        <div class="tl-item current"><div class="tl-phase" style="color:var(--cyan)">Phase 1 — Now ✅</div><div class="tl-title">Alpha (Month 1-3)</div><div class="tl-desc">Core mobile app, matching algo, chat, testnet escrow, admin panel, landing page + demo built.</div></div>
+        <div class="tl-item"><div class="tl-phase" style="color:var(--purple)">Phase 2</div><div class="tl-title">Beta (Month 4-6)</div><div class="tl-desc">Lit Protocol MPC integration, mainnet escrow, GPS tracking, KYC via Jumio/Onfido, rating system, fiat on-ramp.</div></div>
+        <div class="tl-item"><div class="tl-phase" style="color:var(--green)">Phase 3</div><div class="tl-title">Launch (Month 7-9)</div><div class="tl-desc">Contract audit, Jakarta + Manila go live, fren recruitment drive (50+ per city), content + PR campaign, referral rewards.</div></div>
+        <div class="tl-item"><div class="tl-phase" style="color:var(--orange)">Phase 4</div><div class="tl-title">Growth (Month 10-14)</div><div class="tl-desc">5+ cities (Bangkok, KL, HCMC, Mumbai, Nairobi), grief services, Fren Pro subscription, insurance add-on, SBT reputation.</div></div>
+        <div class="tl-item"><div class="tl-phase" style="color:var(--dim)">Phase 5</div><div class="tl-title">Scale (Month 15-18)</div><div class="tl-desc">20+ cities, enterprise B2B, DAO governance, NFT badges, developed-market pilot (US/UK).</div></div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:16px;text-align:center;padding:28px">
+          <div style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px">Target at Month 12</div>
+          <div style="font-size:48px;font-weight:900;font-family:var(--mono);color:var(--cyan);letter-spacing:-2px">150</div>
+          <div style="font-size:14px;color:var(--dim)">tasks / day</div>
+        </div>
+        <div class="card" style="margin-bottom:16px;text-align:center;padding:28px">
+          <div style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px">Monthly GMV Target</div>
+          <div style="font-size:48px;font-weight:900;font-family:var(--mono);color:var(--green);letter-spacing:-2px">$270K</div>
+          <div style="font-size:14px;color:var(--dim)">at $60 avg task fee</div>
+        </div>
+        <div class="card" style="text-align:center;padding:28px">
+          <div style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px">Breakeven</div>
+          <div style="font-size:48px;font-weight:900;font-family:var(--mono);color:var(--purple);letter-spacing:-2px">Mo 18</div>
+          <div style="font-size:14px;color:var(--dim)">conservative estimate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: TEAM -->
+<div class="slide" id="s8">
+  <div class="slide-inner">
+    <div class="s-tag">Team</div>
+    <h2 class="s-title" style="margin-bottom:32px">Built by people who <span class="hl">get it.</span></h2>
+    <div class="g4">
+      <div class="card" style="text-align:center;padding:28px 20px">
+        <div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--cyan),#06b6d4);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--bg);font-weight:900;margin:0 auto 14px">R</div>
+        <div style="font-weight:700">Risman</div>
+        <div style="font-size:12px;color:var(--cyan);font-weight:600;margin-bottom:8px">Founder & Product</div>
+        <div style="font-size:12px;color:var(--dim);line-height:1.5">Security researcher, bug bounty hunter, and builder. Previously Nokia enterprise systems, Google Workspace automation. CS student at UoPeople.</div>
+      </div>
+      <div class="card" style="text-align:center;padding:28px 20px">
+        <div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--purple),#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--bg);font-weight:900;margin:0 auto 14px">?</div>
+        <div style="font-weight:700">Hiring</div>
+        <div style="font-size:12px;color:var(--purple);font-weight:600;margin-bottom:8px">CTO / Lead Engineer</div>
+        <div style="font-size:12px;color:var(--dim);line-height:1.5">Full-stack + smart contract experience. Web3-native, shipped products before. Paranoid about security.</div>
+      </div>
+      <div class="card" style="text-align:center;padding:28px 20px">
+        <div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--green),#10b981);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--bg);font-weight:900;margin:0 auto 14px">?</div>
+        <div style="font-weight:700">Hiring</div>
+        <div style="font-size:12px;color:var(--green);font-weight:600;margin-bottom:8px">Blockchain Dev</div>
+        <div style="font-size:12px;color:var(--dim);line-height:1.5">Solidity + MPC wallet integration (Lit Protocol / Fireblocks). Audit experience a plus.</div>
+      </div>
+      <div class="card" style="text-align:center;padding:28px 20px">
+        <div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--orange),#f59e0b);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--bg);font-weight:900;margin:0 auto 14px">?</div>
+        <div style="font-weight:700">Hiring</div>
+        <div style="font-size:12px;color:var(--orange);font-weight:600;margin-bottom:8px">BD / Ops</div>
+        <div style="font-size:12px;color:var(--dim);line-height:1.5">On-the-ground ops in Jakarta + Manila. Hospital partnerships, fren recruitment, market expansion.</div>
+      </div>
+    </div>
+    <div style="margin-top:24px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:13px;color:var(--dim);text-align:center">
+      <strong style="color:var(--text)">Tech already built:</strong> Working demo app (5 pages, full escrow flow) + investor landing page + platform plan document. All by a single founder. Imagine what a full team does.
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10: THE ASK + CONTACT -->
+<div class="slide" id="s9">
+  <div class="orb" style="width:500px;height:500px;background:rgba(92,225,230,0.06);top:20%;left:30%"></div>
+  <div class="slide-inner" style="text-align:center">
+    <div class="s-tag" style="justify-content:center">The Ask</div>
+    <h2 class="s-title" style="margin-left:auto;margin-right:auto">Ready to back the<br><span class="hl">fren economy?</span></h2>
+    <p class="s-sub" style="margin:0 auto 40px;text-align:center">We're raising a seed round to take TrustStay from testnet to live markets. Funding goes to: engineering team, smart contract audit, launch ops in Jakarta + Manila, and first 6 months of growth marketing.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:40px">
+      <div class="card card-sm" style="min-width:180px"><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Raising</div><div style="font-size:28px;font-weight:900;font-family:var(--mono);color:var(--cyan)">$500K</div><div style="font-size:12px;color:var(--dim)">Seed round</div></div>
+      <div class="card card-sm" style="min-width:180px"><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Runway</div><div style="font-size:28px;font-weight:900;font-family:var(--mono);color:var(--green)">18 mo</div><div style="font-size:12px;color:var(--dim)">To breakeven</div></div>
+      <div class="card card-sm" style="min-width:180px"><div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Use of Funds</div><div style="font-size:28px;font-weight:900;font-family:var(--mono);color:var(--purple)">70%</div><div style="font-size:12px;color:var(--dim)">Eng + Product</div></div>
+    </div>
+    <div style="max-width:420px;margin:0 auto;text-align:left">
+      <div class="contact-card">
+        <div class="contact-icon" style="background:var(--cyan-dim);color:var(--cyan)"><i class="fa-brands fa-telegram"></i></div>
+        <div><div class="contact-label">Telegram</div><div class="contact-val"><a href="https://t.me/CryptoRisman" target="_blank">@CryptoRisman</a></div></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon" style="background:var(--purple-dim);color:var(--purple)"><i class="fa-solid fa-envelope"></i></div>
+        <div><div class="contact-label">Email</div><div class="contact-val"><a href="mailto:heyrichweb3@gmail.com">heyrichweb3@gmail.com</a></div></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon" style="background:var(--green-dim);color:var(--green)"><i class="fa-solid fa-play"></i></div>
+        <div><div class="contact-label">Live Demo</div><div class="contact-val"><a href="./index.html" target="_blank">truststay.xyz/demo</a></div></div>
+      </div>
+    </div>
+    <div style="margin-top:24px;font-size:13px;color:var(--muted)">Built by frens, for frens. gm. ☀️</div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- NAV BAR -->
+<div class="deck-nav">
+  <div class="deck-nav-left">
+    <div class="deck-logo">TS</div>
+    <div class="deck-brand">Trust<span>Stay</span></div>
+  </div>
+  <div class="deck-nav-center">
+    <button class="nav-arrow" id="prevBtn" onclick="prev()"><i class="fa-solid fa-chevron-left"></i></button>
+    <div class="slide-counter" id="counter">1 / 10</div>
+    <button class="nav-arrow" id="nextBtn" onclick="next()"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+  <div class="deck-nav-right">
+    <a href="./index.html" class="deck-btn" target="_blank"><i class="fa-solid fa-play"></i> Demo</a>
+    <a href="mailto:heyrichweb3@gmail.com" class="deck-btn deck-btn-accent"><i class="fa-solid fa-envelope"></i> Contact</a>
+  </div>
+</div>
+
+<script>
+let current = 0;
+const total = 10;
+const slides = Array.from({length: total}, (_, i) => document.getElementById('s' + i));
+
+function goTo(n) {
+  if (n < 0 || n >= total) return;
+  slides[current].classList.remove('active');
+  slides[current].classList.add(n > current ? 'prev' : '');
+  current = n;
+  slides.forEach((s, i) => {
+    s.classList.remove('active', 'prev');
+    if (i === current) s.classList.add('active');
+    else if (i < current) s.classList.add('prev');
+  });
+  document.getElementById('counter').textContent = `${current + 1} / ${total}`;
+  document.getElementById('progress').style.width = `${((current + 1) / total) * 100}%`;
+  document.getElementById('prevBtn').disabled = current === 0;
+  document.getElementById('nextBtn').disabled = current === total - 1;
+}
+
+function next() { goTo(current + 1); }
+function prev() { goTo(current - 1); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+});
+
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
+});
+
+goTo(0);
+</script>
+</body>
+</html>
